@@ -1112,10 +1112,10 @@ def generate_terminal_end_total_test_graph_2(filter_algo, filter_policy, filter_
             print("iter_print ", iter_print)
             iter_print = iter_print + 1
 
-            turb_ok = 0
+            turb_cpt = 0
             for i in range(lengh_df_turb):
                 if df_run_date_id.iloc[i]['turbulence'] < df_run_date_id.iloc[i]['turbulence_threshold']:
-                    turb_ok = turb_ok + 1
+                    turb_cpt = turb_cpt + 1
 
             percent_turbulence_for_date = round(data_calculation_percent_normal(turb_ok, lengh_df_turb), 1)
             end_total_asset_for_date = int(df_run_date_id.iloc[lengh_df_turb - 1]['end_total_asset'])
