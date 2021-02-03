@@ -17,6 +17,7 @@ import pathlib
 from app import *
 from main import *
 
+from pathlib import Path
 
 MOVE_MERGE_PDF = "OFF"
 
@@ -96,10 +97,22 @@ def get_info_text(df_info_whole_data):
 
 def Init_data():
 
-    print("Initialiation STARTING kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
+    global HOME_CWD
 
-    input_dir  = 'C:/Users/despo/PycharmProjects/pythonProject2/InputData'
-    output_dir = 'C:/Users/despo/PycharmProjects/pythonProject2/OutputData'
+    #input_dir  = 'C:/Users/despo/PycharmProjects/pythonProject2/InputData'
+    #output_dir = 'C:/Users/despo/PycharmProjects/pythonProject2/OutputData'
+
+    input_dir = os.getcwd()
+    input_dir = str(input_dir) + '/InputData'
+    input_dir = input_dir.replace("\\","/")
+
+    output_dir = os.getcwd()
+    output_dir = str(output_dir) + '/InputData'
+    output_dir = output_dir.replace("\\","/")
+
+    # HOME_CWD = str(os.getcwd())
+    # HOME_CWD = HOME_CWD.replace("\\","/")
+
     formated_time = time.strftime("%Y%m%d-%H%M%S")
     output_dir = output_dir + "/" + formated_time
     os.mkdir(output_dir)
@@ -151,12 +164,9 @@ def Init_data():
     #################################################
     df_full_trades_data = fill_trades_dataframe(df_files_list,input_dir,output_dir_trades_states,formated_time)
 
-
-
+    os.chdir(HOME_CWD)
 
     INIT_DATA = "OFF"
-    print("Initialiation completed init set to ",INIT_DATA," kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
-
 
     return (df_group_test, df_full_terminal_data, df_full_stocks_data, df_full_trades_data)
 

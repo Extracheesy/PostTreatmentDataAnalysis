@@ -21,11 +21,9 @@ def move_pdfs(output) :
 
     os.chdir(output)
     print(os.getcwd())
-    print("tata +++++++++++++++++")
 
     os.chdir("..")
     print(os.getcwd())
-    print("titi +++++++++++++++++")
 
     pdf_files = find_ext(".","pdf")
 

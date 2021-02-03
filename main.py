@@ -28,11 +28,11 @@ def print_hi(name):
 
 def parse_InputData_csv_file(files_stats_dataframe, dir_path) :
     # Print the current working directory
-    print("previous working directory: {0}".format(os.getcwd()))
+    #print("previous working directory: {0}".format(os.getcwd()))
     # Change the current working directory
     os.chdir(dir_path)
     # Print the new current working directory
-    print("Current working directory: {0}".format(os.getcwd()))
+    #print("Current working directory: {0}".format(os.getcwd()))
     #print(os.getcwd())
 
     extension = 'csv'
@@ -126,18 +126,21 @@ def parse_InputData_csv_file(files_stats_dataframe, dir_path) :
 
 def dataframe_save_to_csv(files_dataframe, dir_path, file_name_csv) :
 
-    print("previous working directory: {0}".format(os.getcwd()))
+    #print("previous working directory: {0}".format(os.getcwd()))
     # Change the current working directory
+    current_path = os.getcwd()
     os.chdir(dir_path)
+
     # Print the new current working directory
-    print("Current working directory: {0}".format(os.getcwd()))
+    #print("Current working directory: {0}".format(os.getcwd()))
 
     if os.path.exists(file_name_csv):
       os.remove(file_name_csv)
 
     files_dataframe.to_csv(file_name_csv)
-    print("output file created  ", file_name_csv)
-
+    #print("output file created  ", file_name_csv)
+    os.chdir(current_path)
+    #print("back to previous working directory: {0}".format(current_path))
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -146,7 +149,7 @@ if __name__ == '__main__':
     app.run_server(debug=True)
 
 
-    print_hi('PyCharm')
+    #print_hi('PyCharm')
 
 
 

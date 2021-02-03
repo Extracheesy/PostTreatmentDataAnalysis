@@ -24,8 +24,8 @@ def calculation_percent_normal (value1 , value2):
 def computed_data_in_dataframe(df_group_by_policies_at_final_states, policy,output_dir_terminal_state,formated_time) :
 
     os.chdir(output_dir_terminal_state)
-    print(os.getcwd())
-    print("+++++++++++++++++")
+    # print(os.getcwd())
+
     computed_data_quantile_terminal_csv = "computed_terminal_data_quantile_" + policy + "_" + formated_time + ".csv"
     computed_data_table_terminal_csv = "computed_terminal_data_table_" + policy + "_" + formated_time + ".csv"
     computed_data_end_total_asset_terminal_csv = "computed_terminal_data_end_total_asset_" + policy + "_" + formated_time + ".csv"
@@ -341,9 +341,9 @@ def analyse_terminal_dataframe(df_full_terminal_data,output_dir_terminal_state,f
 def fill_terminal_dataframe(df_files_list,input_dir,output_dir_terminal_state,formated_time):
 
     df_terminal_list = df_files_list[(df_files_list.file_type == "terminal")]
-    print("output_dir_terminal_state: ", output_dir_terminal_state)
+    # print("output_dir_terminal_state: ", output_dir_terminal_state)
     os.chdir(output_dir_terminal_state)
-    print(os.getcwd())
+    # print(os.getcwd())
     full_list_terminal_csv = "full_list_terminal_data_file_" + formated_time + ".csv"
     df_terminal_list.to_csv(full_list_terminal_csv,index=None)
     os.chdir(input_dir)
@@ -385,9 +385,9 @@ def fill_terminal_dataframe(df_files_list,input_dir,output_dir_terminal_state,fo
 def fill_trades_dataframe(df_files_list,input_dir,output_dir,formated_time):
 
     df_trades_list = df_files_list[(df_files_list.file_type == "trades")]
-    print("output_dir_trades_state: ", output_dir)
+    # print("output_dir_trades_state: ", output_dir)
     os.chdir(output_dir)
-    print(os.getcwd())
+    # print(os.getcwd())
     full_list_trades_csv = "full_list_trades_data_file_" + formated_time + ".csv"
     df_trades_list.to_csv(full_list_trades_csv,index=None)
     os.chdir(input_dir)
@@ -430,16 +430,14 @@ def fill_trades_dataframe(df_files_list,input_dir,output_dir,formated_time):
 def fill_stocks_dataframe(df_files_list,input_dir,output_dir_stocks_state,formated_time):
 
     df_stocks_list = df_files_list[(df_files_list.file_type == "stocks")]
-    print("output_dir_stocks_state: ", output_dir_stocks_state)
+    # print("output_dir_stocks_state: ", output_dir_stocks_state)
     os.chdir(output_dir_stocks_state)
-    print(os.getcwd())
+    # print(os.getcwd())
     full_list_stocks_csv = "full_list_stocks_data_file_" + formated_time + ".csv"
     df_stocks_list.to_csv(full_list_stocks_csv,index=None)
     os.chdir(input_dir)
 
     count = 0
-
-    print("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo")
 
     for i in df_stocks_list.file_name :
         df_tmp_stocks_data = pd.read_csv(i, index_col=[0])
@@ -471,15 +469,12 @@ def fill_stocks_dataframe(df_files_list,input_dir,output_dir_stocks_state,format
 
     os.chdir(output_dir_stocks_state)
     full_data_stocks_csv = "full_data_stocks_data_file_" + formated_time + ".csv"
-    print("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo   ")
+
     IBM_stocks_data = df_full_stocks_data[(df_full_stocks_data.tic == "IBM")]
 
     IBM_stocks_data.to_csv(full_data_stocks_csv,index=None)
 
     # df_full_stocks_data.to_csv(full_data_stocks_csv,index=None)
-
-
-    print("oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo   ", count)
 
     return (df_full_stocks_data)
 

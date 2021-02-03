@@ -8,6 +8,10 @@ import plotly
 import plotly.graph_objects as go
 import plotly.express as px
 
+import os
+
+HOME_CWD = str(os.getcwd()).replace("\\","/")
+
 from init_data import *
 
 df_global_info_whole_data , df_global_full_terminal_data , df_global_full_stocks_data, df_global_full_trades_data = Init_data()
@@ -443,7 +447,6 @@ app.layout = html.Div(
               [Input('tabs-styled-with-inline', 'value')])
 # def render_content(tab, algo, policy, market):
 def render_content(tab):
-    print(tab)
     if tab == 'tab-1':
         return {'display': 'block'} , {'display': 'none'}
     elif tab == 'tab-2':
@@ -778,7 +781,7 @@ def generate_terminal_end_total_test_graph_2(filter_algo, filter_policy, filter_
         if (value_picked >= nb_run_selected):
             value_picked = nb_run_selected - 1
 
-        print("value picked by slide ", value_picked)
+        # print("value picked by slide ", value_picked)
 
         run_date_picked = np.int64(df_filtered_full_terminal_data.iloc[value_picked]['run_date'])
         run_time_picked = np.int64(df_filtered_full_terminal_data.iloc[value_picked]['run_time'])
@@ -1013,6 +1016,7 @@ def generate_terminal_sharpe_trades_graph(filter_algo, filter_policy, filter_mar
 def generate_terminal_end_total_test_graph_2(filter_algo, filter_policy, filter_market,slide_value):
 
     global df_global_full_trades_data
+    global HOME_CWD
 
     df_copy_full_trades_data = df_global_full_trades_data.copy(deep=True)
     df_copy_full_trades_data_for_slide = df_global_full_trades_data.copy(deep=True)
@@ -1048,8 +1052,8 @@ def generate_terminal_end_total_test_graph_2(filter_algo, filter_policy, filter_
         value_picked = nb_run_selected - 1
 
     run_time_picked = df_filtered_full_trades_data.iloc[value_picked]['run_time']
-    print("value picked by trades slide ", value_picked)
-    print("run date picked by trades slide ", run_time_picked)
+    # print("value picked by trades slide ", value_picked)
+    # print("run date picked by trades slide ", run_time_picked)
 
 
     df_filter_trades_end_assets = df_copy_full_trades_data[(df_copy_full_trades_data.run_time == run_time_picked)]
@@ -1091,11 +1095,14 @@ def generate_terminal_end_total_test_graph_2(filter_algo, filter_policy, filter_
     fig_trades_end_assets.update_layout(showlegend=False,)
     fig_trades_turbulences.update_layout(showlegend=False,)
 
-    input_dir  = 'C:/Users/despo/PycharmProjects/pythonProject2/InputData'
+    # input_dir  = 'C:/Users/despo/PycharmProjects/pythonProject2/InputData'
+
+    input_dir = HOME_CWD + '/InputData'
+    input_dir = input_dir.replace("\\","/")
+
     os.chdir(input_dir)
 
     if os.path.isfile('turbulence_data_computed.csv'):
-        print('read turbulence_data_computed.csv')
         df_display_turbulence = pd.read_csv('turbulence_data_computed.csv', index_col=[0])
     else:
         df_copy_full_trades_data_turbulence = df_global_full_trades_data.copy(deep=True)
@@ -1109,7 +1116,7 @@ def generate_terminal_end_total_test_graph_2(filter_algo, filter_policy, filter_
             df_run_date_id = df_copy_full_trades_data_turbulence[(df_copy_full_trades_data_turbulence.run_time ==  run_date_id)]
 
             lengh_df_turb = len(df_run_date_id)
-            print("iter_print ", iter_print)
+            # print("iter_print ", iter_print)
             iter_print = iter_print + 1
 
             turb_cpt = 0
@@ -1141,7 +1148,10 @@ def generate_terminal_end_total_test_graph_2(filter_algo, filter_policy, filter_
     df_display_turbulence_filtered.sort_values(by=['end_total_asset'], inplace=True, ascending=True)
 
 
-    output_dir = 'C:/Users/despo/PycharmProjects/pythonProject2/OutputData'
+
+    # output_dir = 'C:/Users/despo/PycharmProjects/pythonProject2/OutputData'
+
+    output_dir = HOME_CWD + '/OutputData'
     os.chdir(output_dir)
 
     if(os.path.isfile('turbulence_data_computed.csv')):
@@ -1151,6 +1161,8 @@ def generate_terminal_end_total_test_graph_2(filter_algo, filter_policy, filter_
         df_display_turbulence.to_csv('turbulence_data_computed.csv')
 
     fig_end_assets_turbulence = px.line(df_display_turbulence_filtered, x="end_total_asset", y=["turbulence_%"], color_discrete_sequence=["purple"])
+
+    os.chdir(HOME_CWD)
 
     return fig_trades_end_assets , fig_trades_turbulences, fig_end_assets_turbulence
 
