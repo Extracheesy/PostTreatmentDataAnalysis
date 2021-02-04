@@ -107,7 +107,7 @@ def Init_data():
     input_dir = input_dir.replace("\\","/")
 
     output_dir = os.getcwd()
-    output_dir = str(output_dir) + '/InputData'
+    output_dir = str(output_dir) + '/OutputData'
     output_dir = output_dir.replace("\\","/")
 
     # HOME_CWD = str(os.getcwd())
